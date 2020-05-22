@@ -74,11 +74,13 @@ def deploy_job_creator():
     """ Create CronJobs for configured Deployments """
 
     deployments__to_scale = deployments_to_scale()
+    print("Agendamento - BaseERP")
     print("Deployments collected for scaling: ")
     for deploy, schedules in deployments__to_scale.items():
         deployment = deploy.split("/")[1]
         namespace = deploy.split("/")[0]
         for n in range(len(schedules)):
+
             schedules_n = schedules[n]
             replicas = schedules_n.get('replicas', None)
             minReplicas = schedules_n.get('minReplicas', None)
