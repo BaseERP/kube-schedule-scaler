@@ -8,6 +8,8 @@ import pykube
 import re
 import urllib.request
 import boto3
+import time
+from datetime import datetime
 from crontab import CronTab
 
 EXECUTION_TIME = 'datetime.datetime.now().strftime("%d-%m-%Y %H:%M UTC")'
@@ -75,7 +77,11 @@ def deploy_job_creator():
 
     deployments__to_scale = deployments_to_scale()
     print("Agendamento - BaseERP")
-    print("Deployments collected for scaling: ")
+
+    now = datetime.now()
+    agora = now.strftime("%H:%M:%S")
+    print('%s - Deployments collected for scaling:' %(agora))
+
     for deploy, schedules in deployments__to_scale.items():
         deployment = deploy.split("/")[1]
         namespace = deploy.split("/")[0]
@@ -112,6 +118,9 @@ def deploy_job_creator():
             try:
                 job.setall(schedule)
                 job.set_comment("Scheduling_Jobs")
+                agora = now.strftime("%H:%M:%S")
+                print('%s - Agendou novamente:' %(agora))
+
             except Exception:
                 print('Deployment: %s has syntax error in the schedule' % (deployment))
                 job.delete()

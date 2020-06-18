@@ -19,6 +19,7 @@ deployment = pykube.Deployment.objects(api).filter(namespace="%(namespace)s").ge
 replicas = %(replicas)s
 minReplicas = %(minReplicas)s
 maxReplicas = %(maxReplicas)s
+print('Entrou no agendamento %(name)s ')
 
 if replicas != None:
     deployment.replicas = replicas

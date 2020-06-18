@@ -2,12 +2,11 @@ import os
 import time
 from crontab import CronTab
 from datetime import datetime
-from datetime import timedelta
 
 cron = CronTab(user='root')
 scale_jobs = cron.find_comment('Scheduling_Jobs')
 
-print("Running the Jobs of the last 5 minutes")
+print("Running the Jobs of the last 5 minuto")
 
 for job in scale_jobs:
 
